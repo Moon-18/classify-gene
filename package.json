@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev --host",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  }, 
+  "dependencies": {
+    "echarts": "^5.5.0",
+    "normalize.css": "^8.0.1",
+    "nuxt": "^3.10.3",
+    "nuxt-windicss": "^2.6.1",
+    "vue": "^3.4.21",
+    "vue-echarts": "^6.6.9",
+    "vue-router": "^4.3.0"
+  },
+  "devDependencies": {
+    "@ant-design-vue/nuxt": "^1.4.1"
+  }
+}
