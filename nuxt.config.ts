@@ -1,9 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ['@ant-design-vue/nuxt', 'nuxt-windicss'],
-  antd: {
-    // Options
-  },
+  modules: ['nuxt-windicss'],
   devtools: { enabled: true },
   build: {
     transpile: [/echarts/],
@@ -11,5 +8,11 @@ export default defineNuxtConfig({
   css: [
     // 引入 normalize.css
     'normalize.css',
+  ],
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false, // 仅根据组件名称而不是路径自动导入组件
+    },
   ],
 });

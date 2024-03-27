@@ -1,0 +1,117 @@
+{
+  "data": [
+    {
+      "name": "DecisionTreeClassifier",
+      "matrix": [
+        [119, 4],
+        [1, 41]
+      ],
+      "accuracy": 0.9696969696969697,
+      "precision": 0.9513888888888888,
+      "recall": 0.971835075493612,
+      "f1_score": 0.9609763019724706,
+      "auc": 0.9718350754936123,
+      "importance": []
+    },
+    {
+      "name": "KNeighborsClassifier",
+      "matrix": [
+        [123, 0],
+        [9, 33]
+      ],
+      "accuracy": 0.9454545454545454,
+      "precision": 0.9659090909090908,
+      "recall": 0.8928571428571428,
+      "f1_score": 0.9223529411764706,
+      "auc": 0.8928571428571428,
+      "importance": []
+    },
+    {
+      "name": "GaussianNB",
+      "matrix": [
+        [121, 2],
+        [0, 42]
+      ],
+      "accuracy": 0.9878787878787879,
+      "precision": 0.9772727272727273,
+      "recall": 0.9918699186991871,
+      "f1_score": 0.9842737323675181,
+      "auc": 0.9918699186991871,
+      "importance": []
+    },
+    {
+      "name": "MLPClassifier",
+      "matrix": [
+        [119, 4],
+        [0, 42]
+      ],
+      "accuracy": 0.9757575757575757,
+      "precision": 0.9565217391304348,
+      "recall": 0.983739837398374,
+      "f1_score": 0.96900826446281,
+      "auc": 0.983739837398374,
+      "importance": []
+    },
+    {
+      "name": "SVC",
+      "matrix": [
+        [123, 0],
+        [22, 20]
+      ],
+      "accuracy": 0.8666666666666667,
+      "precision": 0.9241379310344828,
+      "recall": 0.7380952380952381,
+      "f1_score": 0.7815358690418873,
+      "auc": 0.7380952380952381,
+      "importance": []
+    },
+    {
+      "name": "RandomForestClassifier",
+      "matrix": [
+        [123, 0],
+        [0, 42]
+      ],
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "auc": 1.0,
+      "importance": []
+    },
+    {
+      "name": "RNN",
+      "matrix": [
+        [113, 10],
+        [1, 41]
+      ],
+      "accuracy": 0.9333333333333333,
+      "precision": 0.8975748194014448,
+      "recall": 0.947444831591173,
+      "f1_score": 0.9176534639989111,
+      "auc": 0.9474448315911731,
+      "importance": []
+    },
+    {
+      "name": "CNN",
+      "matrix": [
+        [123, 0],
+        [0, 42]
+      ],
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0,
+      "auc": 1.0,
+      "importance": []
+    }
+  ],
+  "testSize": 0.3,
+  "reason": [
+    { "name": "OG0000165", "index": 165, "score": 0.8266993410769828 },
+    { "name": "OG0006989", "index": 6989, "score": 0.0795763439800094 },
+    { "name": "OG0011998", "index": 11998, "score": 0.04722743478421351 },
+    { "name": "OG0001421", "index": 1421, "score": 0.023723194980528897 },
+    { "name": "OG0037356", "index": 37356, "score": 0.012034790331112377 },
+    { "name": "OG0013961", "index": 13961, "score": 0.010738894847153003 }
+  ]
+}

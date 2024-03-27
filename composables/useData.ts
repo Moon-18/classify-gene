@@ -1,20 +1,28 @@
-import report from './report.json';
+import r1 from './report/report-0.1.json';
+import r2 from './report/report-0.2.json';
+import r3 from './report/report-0.3.json';
+import r4 from './report/report-0.4.json';
+import r5 from './report/report-0.5.json';
+import r6 from './report/report-0.6.json';
+import r7 from './report/report-0.7.json';
+import r8 from './report/report-0.8.json';
+import r9 from './report/report-0.9.json';
+import importance from './impotance.json';
+import totalOg from './total.json';
+
+const reports = [r1, r2, r3, r4, r5, r6, r7, r8, r9];
+
+// console.log(reports);
 function transformMatrix(matrix: number[][]): number[][] {
   const result: number[][] = [];
-
-  // for (let i = 0; i < matrix.length; i++) {
-  //   for (let j = 0; j < matrix[i].length; j++) {
-  //     result.push([i, j, matrix[i][j]]);
-  //   }
-  // }
   const [[a, b], [c, d]] = matrix;
   result.push([0, 1, a], [1, 1, b], [0, 0, c], [1, 0, d]);
-  // for (let i = 0; i < matrix.length; i++) {
-  //   for (let j = matrix[i].length - 1; j >= 0; j--) {
-  //     result.push([i, j, matrix[i][j]]);
-  //   }
-  // }
   return result;
+}
+
+function unique2DArray(arr: any[][]): any[][] {
+  const set = new Set(arr.map((item) => JSON.stringify(item) as string));
+  return Array.from(set).map((item) => JSON.parse(item));
 }
 
 type DataType = {
@@ -24,11 +32,53 @@ type DataType = {
   benchmark: { name: string; text: string; formula: string }[];
   standard: { name: string; text: string }[];
   meaning: { name: string; text: string; gene: string }[];
+  stackbar: {
+    xAxisData: number[];
+    series: {
+      name: string;
+      type: string;
+      stack: string;
+      barWidth: string;
+      label: {
+        show: boolean;
+      };
+      data: number[];
+    }[];
+  };
+  pie: { name: string; value: number }[];
+  lineData: {
+    series: {
+      name: string;
+      type: string;
+      color: string;
+      data: number[];
+    }[];
+    xAxisData: string[];
+  };
+  dot: {
+    multi: (string | number)[][];
+    simple: (string | number)[][];
+    ogs: string[];
+  };
+  totalLine: {
+    total: number[];
+  };
 };
 
-export function useData<T extends keyof DataType>(type: T): DataType[T] {
-  const { data } = report;
+export function useData<T extends keyof DataType>(type: T, test_size: number): DataType[T] {
+  const index = (Math.floor(test_size * 10) % 10) - 1; // 提取小数点后第一位数字
+
+  const { data } = reports[index];
   const nameArr = data.map((el) => el.name);
+
+  // 获取所有重要因素 og0 og1 og2...
+  const getOgs = () => {
+    const allReason = new Set<string>();
+    const reasons = reports.map((el) => el.reason);
+    reasons.forEach((e) => e.forEach((el) => el.score >= 0.05 && allReason.add(el.name)));
+    return [...allReason].sort();
+  };
+
   if (type === 'bar') {
     const accuracy = { name: 'accuracy', type: 'bar', data: data.map((el) => el.accuracy) };
     const precision = { name: 'precision', type: 'bar', data: data.map((el) => el.precision) };
@@ -67,11 +117,11 @@ export function useData<T extends keyof DataType>(type: T): DataType[T] {
       },
       {
         name: 'RNN',
-        text: '决策树是一种基于树结构的分类模型，它通过对数据的分裂来构建一棵树，每个节点代表一个特征，每个分支代表一个特征值，最终的叶子节点代表一个类别。',
+        text: 'RNN（循环神经网络）是一种处理时间序列数据的深度学习模型。在分类问题中，RNN通过捕捉输入数据的时间依赖关系来实现高效分类。RNN在每个时间步接收输入向量，并根据前一时间步的隐藏状态计算输出向量。通过更新隐藏状态，RNN能够保留历史信息，从而在处理序列数据时表现出优越的性能。',
       },
       {
         name: 'CNN',
-        text: '决策树是一种基于树结构的分类模型，它通过对数据的分裂来构建一棵树，每个节点代表一个特征，每个分支代表一个特征值，最终的叶子节点代表一个类别。',
+        text: 'CNN（卷积神经网络）是一种深度学习模型，适用于处理网格结构数据，如图像。在分类问题中，CNN通过卷积层提取局部特征，ReLU激活函数学习复杂特征，池化层降低空间尺寸，最后全连接层将特征映射到输出类别。',
       },
     ] as DataType[T];
   } else if (type === 'benchmark') {
@@ -126,15 +176,105 @@ export function useData<T extends keyof DataType>(type: T): DataType[T] {
     ] as DataType[T];
   } else if (type === 'meaning') {
     return [
-      {
-        name: 'OG0000336',
-        text: '含义是...',
-        gene: '对应的基因组是a',
-      },
-      { name: 'OG0004904', text: '含义是...', gene: '对应的基因组是b' },
-      { name: 'OG0031400', text: '含义是...', gene: '对应的基因组是c' },
-      { name: 'OG0049486', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0000043', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0000165', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0000336', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0000896', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0001225', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0003369', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0004956', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0006989', text: '含义是...', gene: '对应的基因组d' },
+      { name: 'OG0007128', text: '含义是...', gene: '对应的基因组d' },
     ] as DataType[T];
+  } else if (type === 'stackbar') {
+    // 第一步,横轴是 所有有占比的基因
+    const allReasonArr = getOgs();
+    // console.log(allReasonArr, '🔥');
+
+    const allOgIndex = new Set<number>();
+    const reasons = reports.map((el) => el.reason);
+    reasons.forEach((e) => e.forEach((el) => el.score >= 0.05 && allOgIndex.add(el.index)));
+
+    // 第二步,填上
+    const series = allReasonArr.sort().map((og) => {
+      // 对于每一个og,找到每一个测试集的含量,没有 这个测试集就是0
+      const data = reasons.map((e) => {
+        for (const { name, score } of e) {
+          if (og === name) return score.toFixed(2);
+        }
+        return 0;
+      });
+      return {
+        name: og,
+        type: 'bar',
+        stack: 'total',
+        barWidth: '60%',
+        label: {
+          show: true,
+        },
+        data,
+      };
+    });
+    return {
+      xAxisData: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9],
+      series: series,
+    } as DataType[T];
+  } else if (type === 'pie') {
+    return reports[index].reason.map((e) => ({ name: e.name, value: e.score })) as DataType[T];
+  } else if (type === 'lineData') {
+    const series: {
+      name: string;
+      type: string;
+      color: string;
+      data: number[];
+    }[] = [];
+    const ls = importance.labels;
+    const os = importance.ogs;
+    os.forEach((e, index) => {
+      const label = ls[index];
+      series.push({
+        name: label === 0 ? '单细胞' : '多细胞',
+        type: 'line',
+        color: label === 0 ? 'rgba(128, 176, 249,0.5)' : 'rgba(161, 202, 112,0.5)',
+        data: e,
+      });
+    });
+    return { xAxisData: getOgs(), series } as DataType[T];
+  } else if (type === 'dot') {
+    const ogs = getOgs();
+    const multi: (string | number)[][] = [];
+    const simple: (string | number)[][] = [];
+    const ls = importance.labels;
+    const os = importance.ogs;
+
+    ls.forEach((e, index) => {
+      if (e === 0) {
+        // 单细胞
+        const arr = os[index];
+        for (const og of ogs) {
+          for (const value of arr) {
+            simple.push([og, value]);
+          }
+        }
+      } else {
+        // 多细胞
+        const arr = os[index];
+        for (const og of ogs) {
+          for (const value of arr) {
+            multi.push([og, value]);
+          }
+        }
+      }
+    });
+    // console.log(multi.length, unique2DArray(multi).length, '去重长度');
+    return {
+      multi: unique2DArray(multi),
+      simple: unique2DArray(simple),
+      ogs,
+    } as DataType[T];
+  } else if (type === 'totalLine') {
+    return { total: totalOg.total } as DataType[T];
   }
+  // 我想得到这些列的值
   throw new Error();
 }
