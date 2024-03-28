@@ -69,6 +69,7 @@ const option = {
       brush: {
         type: ['rect', 'polygon', 'clear'],
       },
+      saveAsImage: {},
     },
   },
   brush: {},

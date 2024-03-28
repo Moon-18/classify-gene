@@ -34,6 +34,7 @@ for (let i = 0; i < n; i++) {
   xAxisData.push(`OG${padWithLeadingZeros(i)}`);
   seriesData.push(totalLine[i]);
 }
+console.log(xAxisData.length,'111');
 
 const option = {
   tooltip: {
