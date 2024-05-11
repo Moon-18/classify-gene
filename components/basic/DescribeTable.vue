@@ -12,12 +12,11 @@
         v-for="(item, index) in info"
         :key="index"
         class="bg-white hover:bg-gray-200"
-        :class="{ 'bg-gray-100': index % 2 === 1 }"
-      >
+        :class="{ 'bg-gray-100': index % 2 === 1 }">
         <td
           class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 max-w-400px whitespace-pre-wrap"
           v-for="(value, key) in item"
-        >
+          :style="{ 'min-width': 100 / title.length + '%' }">
           {{ value }}
         </td>
       </tr>
